@@ -12,7 +12,9 @@ def map(request, template):
     template"""
     lender_selected = request.GET.get('lender', '')
     metro_selected = request.GET.get('metro')
-    year_selected = int(request.GET.get('year',str(Year.objects.latest().hmda_year)))
+    year_selected = request.GET.get('year', str(Year.objects.latest().hmda_year))
+    lender_selected = year_selected + lender_selected
+    metro_selected = year_selected + metro_selected
     context = {}
     lender = Institution.objects.filter(institution_id=lender_selected).select_related('agency', 'zip_code', 'lenderhierarchy').first()
     metro = Geo.objects.filter(geo_type=Geo.METRO_TYPE,geoid=metro_selected).first()

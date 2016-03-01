@@ -23,12 +23,12 @@ def format_geo_to_geojson(geos):
     response += '"proj4"}}, "type": "FeatureCollection", "features": [%s]}'
     return response % ', '.join(geo.tract_centroids_as_geojson() for geo in geos)
 
-def get_censustract_geos(request):
+def get_censustract_geos(request, year):
     northEastLat = request.GET.get('neLat')
     northEastLon = request.GET.get('neLon')
     southWestLat = request.GET.get('swLat')
     southWestLon = request.GET.get('swLon')
-    metro = request.GET.get('metro')
+    metro = year + request.GET.get('metro')
     geo_type = request.GET.get('geoType')
     geos = []
     if northEastLat or northEastLon or southWestLat or southWestLon:
@@ -75,7 +75,7 @@ class GeoSerializer(serializers.ModelSerializer):
 @renderer_classes((JSONRenderer, ))     # until we need HTML
 def search(request):
     query_str = request.GET.get('q', '').strip()
-    year= request.GET.get('year', '').strip()
+    year = request.GET.get('year', '').strip()
     query = SearchQuerySet().models(Geo).load_all()
     if request.GET.get('auto'):
         query = query.filter(text_auto=AutoQuery(query_str)).filter(year=year)

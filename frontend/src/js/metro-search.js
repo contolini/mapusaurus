@@ -32,7 +32,9 @@ $(document).ready(function() {
             }
         })
         .on('typeahead:selected', function(ev, suggestion) {
-            msaField.val(suggestion.geoid).data('name', suggestion.name);
+            var re = new RegExp('^' + year, 'i'),
+                geoID = suggestion.geoid.replace(re, '');
+            msaField.val(geoID).data('name', suggestion.name);
             $('#metro-search__submit').prop('disabled', false).removeClass('btn__disabled');
         });
 });

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db.models import Count
 from django.http import HttpResponse
-from hmda.models import HMDARecord
+from hmda.models import HMDARecord, Year
 from geo.models import Geo
 from geo.views import get_censustract_geos 
 from respondents.models import Institution
@@ -16,10 +16,12 @@ def base_hmda_query():
 def loan_originations(request):
     institution_id = request.GET.get('lender')
     metro = request.GET.get('metro')
+    year = request.GET.get('year', str(Year.objects.latest().hmda_year))
+    institution_id = year + institution_id
     action_taken_param = request.GET.get('action_taken')
     lender_hierarchy = request.GET.get('lh')
     peers = request.GET.get('peers')
-    census_tracts = get_censustract_geos(request)
+    census_tracts = get_censustract_geos(request, year)
 
     query = HMDARecord.objects.all()            
 
