@@ -8,8 +8,18 @@
     isUIBlocked = false,
     larVolume = [],
     pctMinority = [],
+    lastRequest,
     dataStore = {};
     dataStore.tracts = {};
+
+    $.ajaxSetup({
+        beforeSend: function(jqXHR) {
+            if (lastRequest) {
+                lastRequest.abort();
+            }
+            lastRequest = jqXHR;
+        }
+    });
     
     // Get the census tracts that are in bounds for the current map view. Return a promise.
     function getTractsInBounds(bounds, geoType){
