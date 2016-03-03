@@ -260,19 +260,16 @@ function initCalls(geoQueryType){
     var action = getActionTaken( $('#action-taken-selector option:selected').val() );
     if( gt === 'selected'){
         // run init with no bounds and no geo_type
-        blockStuff();
         $.when( getTractData(action, false, false) ).done( function(data1){
             init(data1);
         });
     } else if ( gt === 'all_msa'){
         // run init with bounds and geo_type = msa
-        blockStuff();
         $.when( getTractData(action, getBoundParams(), 'msa') ).done( function(data1){
             init(data1);  
         });
     } else if ( gt === 'all'){
         // run init with bounds and geo_type = false
-        blockStuff();
         $.when( getTractData(action, getBoundParams(), false )).done( function(data1){
             init(data1);
         });
@@ -301,8 +298,4 @@ function init(data1){
     $.when( getMsasInBounds() ).done(function(data){
         msaArray = data;
     });
-
-    // Unblock the user interface (remove gradient)
-    $.unblockUI();
-    isUIBlocked = false;
 }

@@ -120,34 +120,6 @@
         $('#peerSelect').prop('checked', status );
     }     
 
-    // Uses jQuery BlockUI plugin to block UI on data loading
-    function blockStuff(){
-        if( isUIBlocked === true ){
-            return false;
-        } else {
-            isUIBlocked = true;
-            $.blockUI(
-                {   css: { 
-                        border: 'none', 
-                        padding: '15px', 
-                        backgroundColor: '#000', 
-                        '-webkit-border-radius': '10px', 
-                        '-moz-border-radius': '10px', 
-                        opacity: 0.5, 
-                        color: '#fff' 
-                    },
-                    message: '<img src="/static/basestyle/img/loading_white.gif" height="75px"> <h6>Loading HMDA Data</h6>',
-                    overlayCSS:  { 
-                        backgroundColor: '#000', 
-                        opacity:         0.0, 
-                        cursor:          'wait' 
-                    }
-                }
-            );
-        }
-        
-    }
-
     //Scales statistical data to the appropriate level
     function hmdaStat(tractData) {
         var $selected = $('#action-taken-selector option:selected'),

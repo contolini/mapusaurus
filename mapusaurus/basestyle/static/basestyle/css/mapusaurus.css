@@ -6049,6 +6049,18 @@ select b {
   zoom: 1;
   behavior: url('/cf-grid/custom-demo/static/css/boxsizing.htc');
 }
+#loading {
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  right: 260px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  font-size: 1.3em;
+  text-align: center;
+}
 .map-aside {
   background-color: #f8f8f8;
 }

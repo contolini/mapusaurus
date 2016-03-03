@@ -100,7 +100,6 @@ module.exports = function(grunt) {
       vendor_map: {
         src: [
           'frontend/bower_components/underscore/underscore.js',
-          'frontend/bower_components/blockui/jquery.blockUI.js',
           'frontend/src/js/leaflet/leaflet.js',
           'frontend/bower_components/leaflet-hash/leaflet-hash.js',
           'frontend/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid.js',

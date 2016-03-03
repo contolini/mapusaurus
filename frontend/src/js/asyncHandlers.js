@@ -5,7 +5,7 @@
 
     var rawGeo, rawLar, rawMinority, rawData, 
     selectedYear = selectedYear || 2014,
-    isUIBlocked = false,
+    showingLoading = false,
     larVolume = [],
     pctMinority = [],
     lastRequest,
@@ -18,6 +18,10 @@
                 lastRequest.abort();
             }
             lastRequest = jqXHR;
+            $('#loading').removeClass('hidden');
+        },
+        complete: function(jqXHR) {
+            $('#loading').addClass('hidden');
         }
     });
     
@@ -58,11 +62,9 @@
         return $.ajax({
             url: endpoint, data: params, traditional: true,
             success: console.log('tract Get successful')
-        }).fail( function( status ){
-            console.log( 'no data was available at' + endpoint + '. status: ' + status );
-            // Unblock the user interface (remove gradient)
-            $.unblockUI();
-            isUIBlocked = false;
+        }).fail( function( jqXHR ){
+            console.log( 'no data was available at' + endpoint + '. status: ' + jqXHR.status );
+            
         });
 
     }    
@@ -130,11 +132,8 @@
         return $.ajax({
             url: endpoint, data: params, traditional: true,
             success: console.log('get API All Data request successful')
-        }).fail( function( status ){
-            console.log( 'no data was available at' + endpoint + '. status: ' + status );
-            // Unblock the user interface (remove gradient)
-            $.unblockUI();
-            isUIBlocked = false;
+        }).fail( function( jqXHR ){
+            console.log( 'no data was available at' + endpoint + '. status: ' + jqXHR.status );
         });
 
     }
@@ -156,11 +155,8 @@
             success: function(data){
                 // console.log("MSA Data for bounds successfully obtained: ", data);
             }
-        }).fail( function( status ){
-            console.log( 'no MSA data was available at' + endpoint + '. status: ' + status );
-            // Unblock the user interface (remove gradient)
-            $.unblockUI();
-            isUIBlocked = false;
+        }).fail( function( jqXHR ){
+            console.log( 'no data was available at' + endpoint + '. status: ' + jqXHR.status );
         });
     }
 
